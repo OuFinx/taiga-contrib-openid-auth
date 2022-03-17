@@ -52,6 +52,7 @@ OpenIDLoginButtonDirective = ($window, $params, $location, $config, $events, $co
 			$location.path(nextUrl)
 
 		redirectURL = () -> $location.absUrl().split('?')[0]
+		randomState = () -> Math.floor(Math.random() * 10000000000)
 		loginOnError = (response) ->
 			$location.search("state", null)
 			$location.search("code", null)
@@ -83,7 +84,8 @@ OpenIDLoginButtonDirective = ($window, $params, $location, $config, $events, $co
 		$el.on "click", ".button-auth", (event) ->
 			console.log(redirectURL());
 			redirectToUri = redirectURL();
-			url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=#{CLIENT_ID}&state=1234&response_type=code&scope=#{AUTH_SCOPE}"
+			randomStateNumber = randomState();
+			url = "#{AUTH_URL}?redirect_uri=#{redirectToUri}&client_id=#{CLIENT_ID}&state=#{randomStateNumber}&response_type=code&scope=#{AUTH_SCOPE}"
 			window.location.href = url
 
 		$scope.$on "$destroy", ->
