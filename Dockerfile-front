@@ -1,0 +1,14 @@
+ARG TAIGA_VERSION=6.4.2
+
+FROM taigaio/taiga-front:${TAIGA_VERSION}
+
+RUN apk --update add git \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm /var/cache/apk/* \
+    && mkdir -p /usr/share/nginx/html/plugins/openid-auth 
+
+COPY ./front/dist/ /usr/share/nginx/html/plugins/openid-auth/
+COPY ./front/conf.json.template /usr/share/nginx/html/conf.json.template
+COPY ./front/30_config_env_subst.sh /docker-entrypoint.d/30_config_env_subst.sh
+
+ENV OPENID_SCOPE="openid email"

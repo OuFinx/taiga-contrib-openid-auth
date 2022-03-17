@@ -1,0 +1,13 @@
+ARG TAIGA_VERSION=6.4.2
+
+FROM taigaio/taiga-back:${TAIGA_VERSION}
+
+RUN apt-get update \
+    && apt-get install git -y
+
+COPY back/ .
+
+RUN pip install -e . \
+    && mv config.py /taiga-back/settings/config.py
+
+ENV OPENID_SCOPE="openid email"
