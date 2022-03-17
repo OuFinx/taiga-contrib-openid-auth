@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/robrotheran/taiga-contrib-openid-auth"
+    "url": "https://github.com/OuFinx/taiga-contrib-openid-auth"
   },
   "keywords": [
     "openid",
